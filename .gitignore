@@ -1,0 +1,12 @@
+#ファイル
+main_local.py
+get_ky.py
+get_rank.py
+post.py
+
+#仮想環境
+venv/
+
+#その他
+rakuten_protein_data.csv
+.DS_Store
