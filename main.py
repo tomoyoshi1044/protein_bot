@@ -77,7 +77,7 @@ def post():
             truncated += full_name[60:].split(" ")[0]  # 次のスペースまで追加
         return truncated
     
-    df = pd.read_cv("rakuten_protein_data.csv")
+    df = pd.read_csv("rakuten_protein_data.csv")
     if df.empty:
         print("データが見つかりません。ツイートをスキップします。")
         return
