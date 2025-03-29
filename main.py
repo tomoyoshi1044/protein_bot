@@ -15,12 +15,11 @@ def get_rank():
         "format": "json",
         "applicationId": APP_ID,
         "affiliateId": AFFILIATE_ID,
-        "genreId": 100938,
-        "hits": 30,
+        "genreId": 563727,
         "page": 1,
     }
 
-    item_key = ['itemName', 'itemPrice', 'reviewCount', 'affiliateUrl', 'mediumImageUrls', 'startTime', 'endTime']
+    item_key = ['rank','itemName', 'itemPrice','reviewCount','affiliateUrl','mediumImageUrls','startTime','endTime']
     item_list = []
 
     response = requests.get(REQUEST_URL, params=search_params)
@@ -47,11 +46,10 @@ def get_rank():
         time.sleep(1)
 
     items_df = pd.DataFrame(item_list)
-    items_df.columns = ['商品名', '商品価格', 'レビュー数', 'A_URL', 'IMG_URL', 'セール開始時期', 'セール終了時期']
+    items_df.columns = ['順位','商品名', '商品価格', 'レビュー数','A_URL','IMG_URL','セール開始時期','セール終了時期']
     items_df.index = np.arange(1, len(items_df) + 1)
 
     items_df["セール終了時期"] = pd.to_datetime(items_df["セール終了時期"], errors="coerce").dt.strftime("%-m月%-d日%H:%M")
-    items_df = items_df.dropna(subset=["セール終了時期"])
     items_df = items_df[items_df["商品名"].str.contains("プロテイン", na=False)]
     items_df["商品価格"] = items_df["商品価格"].astype(float).apply(lambda x: f"{x:,.0f}")
 
@@ -71,28 +69,37 @@ def post():
         access_token=ACCESS_TOKEN,
         access_token_secret=ACCESS_SECRET
     )
-
-    df = pd.read_csv("rakuten_protein_data.csv")
+    
+    def extract_product_name(full_name):
+        """商品名の冒頭60文字＋次のスペースまでを取得"""
+        truncated = full_name[:60]  # 最初の30文字を取得
+        if " " in full_name[60:]:  # 30文字目以降にスペースがあるか確認
+            truncated += full_name[60:].split(" ")[0]  # 次のスペースまで追加
+        return truncated
+    
+    df = pd.read_cv("rakuten_protein_data.csv")
     if df.empty:
         print("データが見つかりません。ツイートをスキップします。")
         return
 
-    name = df.iloc[0, 0]
-    price = df.iloc[0, 1]
-    affiliateUrl = df.iloc[0, 3]
-    sale_end = df.iloc[0, 6]
+    random_index = random.randint(0, min(19, len(df) - 1))
+    name = extract_product_name(df.iloc[random_index, 1])
+    price = df.iloc[random_index, 2]
+    affiliateUrl = df.iloc[random_index, 4]
+    sale_end = df.iloc[random_index, 7]
+
 
     tweet_templates = [
-        f"🔥セール速報🔥\n あの人気プロテインが今だけ【{price}円】💰\n セール終了: {sale_end} \n詳しくはこちら {affiliateUrl} #PR",
-        f"💪 プロテインセール情報 💪\n 今がチャンス！【{price}円】で買えるのは {sale_end} まで⏳\n 詳しくはこちら {affiliateUrl} #PR",
-        f"【お得情報】\n 今だけ特別価格【{price}円】！\n あの話題のプロテインがセール中🔥\n セール終了: {sale_end} まで\n詳しくはこちら {affiliateUrl} #PR",
-        f"⚠️期間限定⚠️\n この価格【{price}円】は {sale_end} まで！\n 今が買い時💥 詳しくはこちら {affiliateUrl} #PR",
-        f"💥セール開催中💥\n 話題のプロテインが【{price}円】で買える！\n セール終了: {sale_end} まで⏳\n お見逃しなく！{affiliateUrl} #PR",
-        f"🏋️‍♂️ 期間限定セール 🏋️‍♀️\n 今なら【{price}円】でGET！\n セールは {sale_end} まで⏳\n 詳しくはこちら {affiliateUrl} #PR",
-        f"🔥数量限定🔥\n 特価！【{price}円】のチャンス！\n {sale_end} までの限定セール💨\n すぐチェック👉 {affiliateUrl} #PR",
-        f"💰プロテインセール💰\n【{price}円】の特別セール中！\n 終了は {sale_end}まで ⏳ お早めに！\n 詳細: {affiliateUrl} #PR",
-        f"💪筋トレ応援💪\n お得なプロテインが【{price}円】で買える！\n {sale_end} までの限定価格🏃‍♂️💨\n 詳細: {affiliateUrl} #PR",
-        f"⏳ラストチャンス⏳\n {sale_end} までこの価格【{price}❗】\n お得なプロテインを見逃すな👀\n 詳細: {affiliateUrl} #PR"
+        f"💪【{name}】が登場！\n 今なら【{price}円】で購入可能💰\n#ad\n{affiliateUrl}",
+        f"🏋️‍♂️ 話題の【{name}】で栄養補給🏋️‍♀️\n トレーニングのお供に！【{price}円】とお買い得💰\n#ad\n{affiliateUrl}",
+        f"💰【{name}】が大好評💰\n お得な【{price}円】でゲットしよう！\n#ad\n{affiliateUrl}",
+        f"✨人気の【{name}】がお買い得✨\n たんぱく質補給に最適！【{price}円】で爆売れ中⭐️\n#ad\n{affiliateUrl}",
+        f"🔥【{name}】が話題沸騰🔥\n【{price}円】で好評販売中\n#ad💥\n{affiliateUrl}",
+        f"🍀 健康サポートに【{name}】がオススメ🍀\n 価格は【{price}円とお買い得！\n#ad\n{affiliateUrl}",
+        f"💥筋トレ・ダイエットのお供に【{name}】💥\n 今なら【{price}円】とお買い得！\n#ad\n{affiliateUrl}",
+        f"💪 筋トレにおすすめ【{name}】💪\n【{price}円】からお得に買える💰\n#ad\n{affiliateUrl}",
+        f"🏋️‍♀️【{name}】が大人気🏋️‍♂️\n 嬉しい価格【{price}円】で販売中！\n#ad\n{affiliateUrl}",
+        f"🔍話題の【{name}】をチェック🔍\n 人気のプロテインが【{price}円】で手に入れるチャンス！\n#ad\n{affiliateUrl}"
     ]
 
     message = random.choice(tweet_templates)
