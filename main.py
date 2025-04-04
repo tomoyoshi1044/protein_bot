@@ -90,16 +90,16 @@ def post():
 
 
     tweet_templates = [
-        f"💪【{name}】が登場！\n 今なら【{price}円】で購入可能💰\n#ad\n{affiliateUrl}",
-        f"🏋️‍♂️ 話題の【{name}】で栄養補給🏋️‍♀️\n トレーニングのお供に！【{price}円】とお買い得💰\n#ad\n{affiliateUrl}",
-        f"💰【{name}】が大好評💰\n お得な【{price}円】でゲットしよう！\n#ad\n{affiliateUrl}",
-        f"✨人気の【{name}】がお買い得✨\n たんぱく質補給に最適！【{price}円】で爆売れ中⭐️\n#ad\n{affiliateUrl}",
-        f"🔥【{name}】が話題沸騰🔥\n【{price}円】で好評販売中\n#ad💥\n{affiliateUrl}",
-        f"🍀 健康サポートに【{name}】がオススメ🍀\n 価格は【{price}円とお買い得！\n#ad\n{affiliateUrl}",
-        f"💥筋トレ・ダイエットのお供に【{name}】💥\n 今なら【{price}円】とお買い得！\n#ad\n{affiliateUrl}",
-        f"💪 筋トレにおすすめ【{name}】💪\n【{price}円】からお得に買える💰\n#ad\n{affiliateUrl}",
-        f"🏋️‍♀️【{name}】が大人気🏋️‍♂️\n 嬉しい価格【{price}円】で販売中！\n#ad\n{affiliateUrl}",
-        f"🔍話題の【{name}】をチェック🔍\n 人気のプロテインが【{price}円】で手に入れるチャンス！\n#ad\n{affiliateUrl}"
+        f"💪【{name}】が登場！\n 今なら【{price}円】で購入可能💰\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
+        f"🏋️‍♂️ 話題の【{name}】で栄養補給🏋️‍♀️\n トレーニングのお供に！【{price}円】とお買い得💰\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
+        f"💰【{name}】が大好評💰\n お得な【{price}円】でゲットしよう！\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
+        f"✨人気の【{name}】がお買い得✨\n たんぱく質補給に最適！【{price}円】で爆売れ中⭐️\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
+        f"🔥【{name}】が話題沸騰🔥\n【{price}円】で好評販売中\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
+        f"🍀 健康サポートに【{name}】がオススメ🍀\n 価格は【{price}円とお買い得！\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
+        f"💥筋トレ・ダイエットのお供に【{name}】💥\n 今なら【{price}円】とお買い得！\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
+        f"💪 筋トレにおすすめ【{name}】💪\n【{price}円】からお得に買える💰\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
+        f"🏋️‍♀️【{name}】が大人気🏋️‍♂️\n 嬉しい価格【{price}円】で販売中！\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
+        f"🔍話題の【{name}】をチェック🔍\n 人気のプロテインが【{price}円】で手に入れるチャンス！\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}"
     ]
 
     message = random.choice(tweet_templates)
