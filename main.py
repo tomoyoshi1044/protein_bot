@@ -95,7 +95,7 @@ def post():
         f"💰【{name}】が大好評💰\n お得な【{price}円】でゲットしよう！\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
         f"✨人気の【{name}】がお買い得✨\n たんぱく質補給に最適！【{price}円】で爆売れ中⭐️\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
         f"🔥【{name}】が話題沸騰🔥\n【{price}円】で好評販売中\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
-        f"🍀 健康サポートに【{name}】がオススメ🍀\n 価格は【{price}円とお買い得！\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
+        f"🍀 健康サポートに【{name}】がオススメ🍀\n 価格は【{price}円】とお買い得！\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
         f"💥筋トレ・ダイエットのお供に【{name}】💥\n 今なら【{price}円】とお買い得！\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
         f"💪 筋トレにおすすめ【{name}】💪\n【{price}円】からお得に買える💰\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
         f"🏋️‍♀️【{name}】が大人気🏋️‍♂️\n 嬉しい価格【{price}円】で販売中！\n#楽天\n#プロテイン\n#ad\n{affiliateUrl}",
