@@ -2,8 +2,10 @@ name: Rakuten Protein Ranking Bot
 
 on:
   schedule:
-    - cron: '0 3 * * *'  # 毎日8:00 JST (23:00 UTC)
-    - cron: '0 12 * * *'  # 毎日21:00 JST (12:00 UTC)
+    - cron: '0 23 * * *'  # 毎日8:00 JST (23:00 UTC)
+    - cron: '0 3 * * *'  # 毎日12:00 JST (23:00 UTC)
+    - cron: '0 9 * * *'  # 毎日18:00 JST (12:00 UTC)
+    - cron: '0 13 * * *'  # 毎日22:00 JST (12:00 UTC)
   workflow_dispatch:  # 手動実行も可能
 
 jobs:
